@@ -1,13 +1,14 @@
-import React from 'react'
 import './App.css'
-import { CoursePanel } from './Components/CoursePanel'
+import { CoursesPage } from './Pages/CoursesPage'
+import { EditorPage } from './Pages/EditorPage'
+import { Header } from './Components/Header'
 
 function App() {
 
   return (
     <>
-      <CoursePanel /> 
-      Hello World
+      <Header />
+      <EditorPage />
     </>
   )
 }

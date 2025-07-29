@@ -24,4 +24,8 @@ export class InteractiveLesson extends Lesson {
 
 export class User {
 
+    constructor(courseList) {
+        this.courseList = courseList
+    }
+
 }
