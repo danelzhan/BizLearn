@@ -1,14 +1,22 @@
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
 import './App.css'
+import { Header } from './Components/Header'
 import { CoursesPage } from './Pages/CoursesPage'
 import { EditorPage } from './Pages/EditorPage'
-import { Header } from './Components/Header'
+import { CoursePage } from './Pages/CoursePage'
+import { VideoPage } from './Pages/VideoPage'
 
 function App() {
 
   return (
     <>
       <Header />
-      <EditorPage />
+      <Router>
+        <Routes>
+          <Route path="/" element={<CoursesPage />} />
+        </Routes>
+      </Router>
     </>
   )
 }
