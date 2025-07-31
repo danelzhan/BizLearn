@@ -5,7 +5,7 @@ export function CoursesPage() {
 
   return (
     <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "40rem"}}>
-      <Link to="/"><CoursePanel /></Link>
+      <Link to="/course"><CoursePanel /></Link>
       
     </div>
   )

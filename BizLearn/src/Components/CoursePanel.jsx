@@ -21,7 +21,8 @@ export function CoursePanel(course) {
                     paddingLeft: "1rem",
                     paddingTop: "1rem",
                     paddingBottom: "0.3rem",
-                    fontSize: "20px"
+                    fontSize: "20px",
+                    color: "#FFFFFF"
                 }}>Zero to Fullstack Bootcamp</p>
                 <p style={{
                     paddingLeft: "1rem",
