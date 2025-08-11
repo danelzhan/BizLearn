@@ -12,3 +12,9 @@ body {
     margin: 0;
     text-decoration: none;
 }
+
+button {
+  all: unset;
+  cursor: pointer;
+  display: inline-block;
+}

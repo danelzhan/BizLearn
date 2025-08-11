@@ -2,15 +2,19 @@ import { ProgressBar } from "../Components/ProgressBar"
 import { LessonPanel } from "../Components/LessonPanel"
 import { BackButton } from "../Components/BackButton"
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-export function CoursePage(course) {
+export function CoursePage() {
+
+    const location = useLocation();
+    const { course } = location.state || {};
+
+    console.log("course", course)
+
+
 
     const width = 75
-    const lessons = [["Demo: Introduction to Web Development", "Build a simple webpage using HTML and CSS."], 
-        ["JavaScript Basics", "Learn JavaScript fundamentals and interact with the webpage"],
-        ["Control Flow and Functions", "Understand logic and create functions to manipulate input."],
-        ["DOM Manipulation and Event Handling", "Learn how to update the webpage dynamically with JavaScript"]]
+    const lessons = course.lessons
     const title = "Zero to Fullstack Bootcamp"
 
     return (

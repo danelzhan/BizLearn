@@ -3,7 +3,7 @@ import Editor from "@monaco-editor/react";
 
 
 
-export function DevEnvironment() {
+export function DevEnvironment( inputHtml, inputCss, inputJs ) {
 
   const defaultHTML = `<!-- HTML -->
   <h1>Challenge 1</h1>

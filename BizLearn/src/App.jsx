@@ -6,16 +6,27 @@ import { CoursesPage } from './Pages/CoursesPage'
 import { EditorPage } from './Pages/EditorPage'
 import { CoursePage } from './Pages/CoursePage'
 import { VideoPage } from './Pages/VideoPage'
+import { VideoLesson, InteractiveLesson, Course, User } from './Objects'
 
 function App() {
+
+  const lesson1 = new VideoLesson("Introduction to HTML", "The basics behind every website")
+  const lesson2 = new InteractiveLesson()
+  const course = new Course("/placeholder.png", 
+    "Zero to Fullstack Bootcamp", 
+    "Introduction into programming and creating your first project", 
+    [lesson1, lesson2]  
+  )
+  const userInfo = new User([course])
+
+  // console.log(userInfo)
 
   return (
     <>
       <Header />
       <Router>
         <Routes>
-          <Route path="/" element={<CoursesPage />} />
-          <Route path="/course/:id" element={<CoursePage />} />
+          <Route path="/" element={<CoursesPage user={userInfo} />} />
           <Route path="/course" element={<CoursePage />} />
           <Route path="/video" element={<VideoPage title={"Demo: Introduction to Web Development"} />}/>
           <Route path="/challenge" element={<EditorPage />} />
