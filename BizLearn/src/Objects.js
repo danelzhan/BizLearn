@@ -16,12 +16,12 @@ export class Course {
         this.description = lessonData.description;
         this.lessons = [];
         lessonData.lessons.forEach((lesson, index) => {
-
             var lessonObject = null;
+            
             if (lesson.type == "VideoLesson") {
                 lessonObject = new VideoLesson(lesson.id, lesson.title, lesson.description, lesson.url);
             } else if (lesson.type == "InteractiveLesson") {
-                lessonObject = new InteractiveLesson(lesson.id, lesson.title, lesson.description, lesson.default_html, lesson.default_css, lesson.defualt_js)
+                lessonObject = new InteractiveLesson(lesson.id, lesson.title, lesson.description, lesson.default_html, lesson.default_css, lesson.default_js)
             }
 
             this.lessons[index] = lessonObject;

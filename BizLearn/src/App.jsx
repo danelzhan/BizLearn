@@ -7,26 +7,18 @@ import { EditorPage } from './Pages/EditorPage'
 import { CoursePage } from './Pages/CoursePage'
 import { VideoPage } from './Pages/VideoPage'
 import { VideoLesson, InteractiveLesson, Course, User } from './Objects'
+import { fetchCourseBySlug } from "./Bridge";
 
 function App() {
 
-  const lesson1 = new VideoLesson("1", "Introduction to HTML", "The basics behind every website")
-  const lesson2 = new InteractiveLesson()
-  const course = new Course("2", "/placeholder.png", 
-    "Zero to Fullstack Bootcamp", 
-    "Introduction into programming and creating your first project", 
-    [lesson1, lesson2]  
-  )
-  const userInfo = new User("3", [course])
-
-  // console.log(userInfo)
+  const demoCourse = fetchCourseBySlug("zero-to-fullstack-bootcamp")
 
   return (
     <>
       <Header />
       <Router>
         <Routes>
-          <Route path="/" element={<CoursesPage user={userInfo} />} />
+          <Route path="/" element={<CoursesPage courses={demoCourse} />} />
           <Route path="/course" element={<CoursePage />} />
           <Route path="/video" element={<VideoPage title={"Demo: Introduction to Web Development"} />}/>
           <Route path="/challenge" element={<EditorPage />} />

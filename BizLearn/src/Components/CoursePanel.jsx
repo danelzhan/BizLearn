@@ -1,6 +1,7 @@
 import { ProgressBar } from "./ProgressBar"
 
 export function CoursePanel(course) {
+    console.log("thumbnail", course.thumbnail)
     return (
         <div className="course-panel" style={{
             display: "flex", 
@@ -14,7 +15,7 @@ export function CoursePanel(course) {
             <ProgressBar percentage={70.0} width={30} height={1} />
             <div style={{overflow: "hidden", width: "100%", 
                 display: "flex", alignItems: "center", justifyContent: "center"}}>
-                <img src="/placeholder.png" alt="" style={{width: "33rem"}}/> 
+                <img src={course.thumbnail} alt="" style={{width: "33rem"}}/> 
             </div>
             <div>
                 <p style={{
