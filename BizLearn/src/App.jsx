@@ -39,8 +39,8 @@ function App() {
         <Routes>
           <Route path="/" element={<CoursesPage courses={demoCourse} />} />
           <Route path="/course/:slug" element={<CoursePage />} />
-          <Route path="/video" element={<VideoPage title={"Demo: Introduction to Web Development"} />}/>
-          <Route path="/challenge" element={<EditorPage />} />
+          <Route path="/video/:slug" element={<VideoPage />}/>
+          <Route path="/editor/:slug" element={<EditorPage />} />
         </Routes>
       </Router>
     </>
