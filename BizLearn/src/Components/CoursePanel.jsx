@@ -1,7 +1,7 @@
 import { ProgressBar } from "./ProgressBar"
 
-export function CoursePanel(course) {
-    console.log("thumbnail", course.thumbnail)
+export function CoursePanel({course}) {
+
     return (
         <div className="course-panel" style={{
             display: "flex", 
@@ -24,14 +24,14 @@ export function CoursePanel(course) {
                     paddingBottom: "0.3rem",
                     fontSize: "20px",
                     color: "#FFFFFF"
-                }}>Zero to Fullstack Bootcamp</p>
+                }}>{course.title}</p>
                 <p style={{
                     paddingLeft: "1rem",
                     paddingBottom: "1rem",
                     maxWidth: "70%",
                     fontSize: "15px",
                     color: "#627295"
-                }}>Introduction into programming and creating your first project.</p>
+                }}>{course.description}</p>
             </div>
         </div>
     );

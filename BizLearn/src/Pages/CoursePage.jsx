@@ -1,34 +1,42 @@
 import { ProgressBar } from "../Components/ProgressBar"
 import { LessonPanel } from "../Components/LessonPanel"
 import { BackButton } from "../Components/BackButton"
+import { fetchCourseBySlug } from "../Bridge";
 
-import { Link, useLocation } from "react-router-dom";
+import { useParams, Link} from "react-router-dom";
+import { useEffect, useState } from "react";
+
+const BRIDGE_URL = 'http://localhost:5000' || "http://127.0.0.1:5000";
 
 export function CoursePage() {
 
-    const location = useLocation();
-    const { course } = location.state || {};
+    const { slug } = useParams();
+    const [course, setCourse] = useState(null);
 
-    console.log("course", course)
+    useEffect(() => {
+    fetch(`${BRIDGE_URL}/api/courses/${slug}`)
+      .then(res => res.json())
+      .then(data => setCourse(data));
+    }, [slug]);
 
+    if (!course) return <p>Loading...</p>;
 
 
     const width = 75
     const lessons = course.lessons
-    const title = "Zero to Fullstack Bootcamp"
 
     return (
         
         <div style={{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column"}}>
             <div style={{width: width + "rem"}}>
                 <div style={{display: "flex", justifyContent: "space-between", width: "74.5rem", margin: "0.5rem"}}>
-                    <p className={"page_title"} >Zero to Fullstack Bootcamp</p>
+                    <p className={"page_title"} >{course.title}</p>
                     <Link to="/"><BackButton /></Link>
                 </div>
                 <div style={{borderRadius: "1rem", overflow: "hidden", backgroundColor: "#172037", height: "40rem"}}>
                     <ProgressBar percentage={70.0} height={1} width={width} />
                     {lessons.map((lesson, index) => (
-                        <Link to="/video"><LessonPanel title={lesson[0]} description={lesson[1]} /></Link>
+                        <Link key={index} to="/video"><LessonPanel title={lesson.title} description={lesson.description} /></Link>
                     ))}
                 </div>
             </div>
