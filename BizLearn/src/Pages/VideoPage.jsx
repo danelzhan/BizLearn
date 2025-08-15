@@ -2,12 +2,23 @@ import { BackButton } from "../Components/BackButton"
 import { SubmitButton } from "../Components/SubmitButton"
 import { Video } from "../Components/Video"
 
-import { useParams, Link} from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 
 
 export function VideoPage({lesson}) {
 
     const { slug } = useParams();
+    const [course, setCourse] = useState(null);
+    
+    useEffect(() => {
+        fetch(`${BRIDGE_URL}/api/lessons/${slug}`)
+            .then(res => res.json())
+            .then(data => setCourse(data));
+    }, [slug]);
+
+    if (!course) return <p>Loading...</p>;
 
     const width = 75
 
