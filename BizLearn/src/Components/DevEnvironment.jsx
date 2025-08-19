@@ -3,15 +3,11 @@ import Editor from "@monaco-editor/react";
 
 
 
-export function DevEnvironment( inputHtml, inputCss, inputJs ) {
+export function DevEnvironment({ inputHTML, inputCSS, inputJS }) {
 
-  const defaultHTML = `<!-- HTML -->
-  <h1>Challenge 1</h1>
-  <p>Using what you learned, create a list of 5 of your favourite foods.</p>`;
-  const defaultCSS = `/* CSS */
-  body { background: #172037; color: white; font-family: sans-serif; }`;
-  const defaultJS = `// JS
-  console.log("Hello from JS!");`;
+  const defaultHTML = inputHTML
+  const defaultCSS = inputCSS
+  const defaultJS = inputJS
 
   const [activeTab, setActiveTab] = useState("html");
   const [html, setHtml] = useState(defaultHTML);

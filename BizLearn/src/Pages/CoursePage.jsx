@@ -23,7 +23,6 @@ export function CoursePage() {
 
 
     const width = 75
-    const lessons = course.lessons
 
     return (
         
@@ -31,14 +30,12 @@ export function CoursePage() {
             <div style={{width: width + "rem"}}>
                 <div style={{display: "flex", justifyContent: "space-between", width: "74.5rem", margin: "0.5rem"}}>
                     <p className={"page_title"} >{course.title}</p>
-                    <Link to="/"><BackButton /></Link>
+                    <BackButton />
                 </div>
                 <div style={{borderRadius: "1rem", overflow: "hidden", backgroundColor: "#172037", height: "40rem"}}>
                     <ProgressBar percentage={70.0} height={1} width={width} />
-                    {lessons.map((lesson, index) => (
-                        lesson.type == "VideoLesson" ? 
-                        <Link key={index} to={`/video/${lesson.uid}`}><LessonPanel title={lesson.title} description={lesson.description} /></Link> :
-                        <Link key={index} to={`/video/${lesson.uid}`}><LessonPanel title={lesson.title} description={lesson.description} /></Link>
+                    {course.lessons.map((lesson, index) => (
+                        <Link key={index} to={`/course/${slug}/lesson/${lesson.id}`}><LessonPanel title={lesson.title} description={lesson.description} /></Link>
                     ))}
                 </div>
             </div>

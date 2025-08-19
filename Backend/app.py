@@ -1,5 +1,5 @@
 import os, json
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from flask_cors import CORS
 from pymongo import MongoClient, ASCENDING
 from bson import ObjectId
@@ -42,7 +42,28 @@ def get_course_by_id(slug):
     if not doc:
         return {"error": "Not found"}, 404
     doc["_id"] = str(doc["_id"])
-    return doc
+    return doc 
+
+@app.get("/api/courses/<slug>/lessons/<id>")
+def get_lesson_by_id(slug, id):
+    db = client["BizLearn"]
+    collection = db["courses"]
+
+    course = collection.find_one({"slug": slug}, {"_id": 0, "title": 1, "lessons": 1})
+    if not course:
+        abort(404, "course not found")
+
+    lesson = None
+
+    for l in course["lessons"]:
+        if str(l.get("id")) == id or l.get("slug") == id:
+            lesson = l
+            break
+
+    if lesson is None:
+        abort(404, "lesson not found")
+    
+    return jsonify(lesson)
 
 def delete_course_by_id(course_id):
     db = client['BizLearn']
@@ -55,3 +76,5 @@ def delete_course_by_id(course_id):
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
+
+get_lesson_by_id("1")

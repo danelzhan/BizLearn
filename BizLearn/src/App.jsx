@@ -7,6 +7,7 @@ import { CoursesPage } from './Pages/CoursesPage'
 import { EditorPage } from './Pages/EditorPage'
 import { CoursePage } from './Pages/CoursePage'
 import { VideoPage } from './Pages/VideoPage'
+import { LessonPage } from "./Pages/LessonPage";
 import { VideoLesson, InteractiveLesson, Course, User } from './Objects'
 import { fetchCourseBySlug } from "./Bridge";
 
@@ -41,6 +42,7 @@ function App() {
           <Route path="/course/:slug" element={<CoursePage />} />
           <Route path="/video/:slug" element={<VideoPage />}/>
           <Route path="/editor/:slug" element={<EditorPage />} />
+          <Route path="/course/:slug/lesson/:id" element={<LessonPage />} />
         </Routes>
       </Router>
     </>

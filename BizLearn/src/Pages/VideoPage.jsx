@@ -2,7 +2,7 @@ import { BackButton } from "../Components/BackButton"
 import { SubmitButton } from "../Components/SubmitButton"
 import { Video } from "../Components/Video"
 
-import { useParams, Link} from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 
 export function VideoPage({lesson}) {
@@ -15,7 +15,7 @@ export function VideoPage({lesson}) {
         <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
             <div style={{display: "flex", justifyContent: "space-between", width: "74.5rem", margin: "0.5rem"}}>
                 <p className={"page_title"} >{lesson.title}</p>
-                <Link to="/course"><BackButton /> </Link>
+                <BackButton />
             </div>
             <div style={{borderRadius: "1rem", width: width + "rem", height: "40rem", display: "flex", justifyContent: "center",
                  alignItems: "center", backgroundColor: "#172037", padding: "1.5rem"}}>
