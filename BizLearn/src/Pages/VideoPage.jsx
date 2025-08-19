@@ -11,6 +11,8 @@ export function VideoPage({lesson}) {
 
     const { slug } = useParams();
     const [course, setCourse] = useState(null);
+
+    const BRIDGE_URL = 'http://localhost:5000' || "http://127.0.0.1:5000";
     
     useEffect(() => {
         fetch(`${BRIDGE_URL}/api/lessons/${slug}`)
