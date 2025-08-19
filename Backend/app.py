@@ -65,19 +65,6 @@ def get_lesson_by_id(slug, id):
     
     return jsonify(lesson)
 
-@app.get("/api/lesson/<slug>")
-def get_lesson_by_id(slug):
-    db = client['BizLearn']
-    collection = db['courses']
-    
-    query = {"slug": slug}
-    
-    doc = collection.find_one({"slug": slug})
-    if not doc:
-        return {"error": "Not found"}, 404
-    doc["_id"] = str(doc["_id"])
-    return doc
-
 def delete_course_by_id(course_id):
     db = client['BizLearn']
     collection = db['courses']

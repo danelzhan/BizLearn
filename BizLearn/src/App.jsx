@@ -36,7 +36,7 @@ function App() {
   return (
     <>
       <Header />
-      <Router>
+      <Router basename="/BizLearn">
         <Routes>
           <Route path="/" element={<CoursesPage courses={demoCourse} />} />
           <Route path="/course/:slug" element={<CoursePage />} />
