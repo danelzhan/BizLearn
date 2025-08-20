@@ -11,6 +11,7 @@
     "deploy": "npm run build && rm -rf docs && mkdir -p docs && cp -r dist/* docs && cp dist/index.html docs/404.html && touch docs/.nojekyll"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.4.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@monaco-editor/react": "^4.7.0",

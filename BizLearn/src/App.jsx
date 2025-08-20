@@ -8,12 +8,17 @@ import { EditorPage } from './Pages/EditorPage'
 import { CoursePage } from './Pages/CoursePage'
 import { VideoPage } from './Pages/VideoPage'
 import { LessonPage } from "./Pages/LessonPage";
+import { LoginPage } from "./Pages/LoginPage";
+import { LogoutPage } from "./Pages/LogoutPage";
+import { ProfilePage } from "./Pages/ProfilePage";
+
 import { VideoLesson, InteractiveLesson, Course, User } from './Objects'
 import { fetchCourseBySlug } from "./Bridge";
 
 function App() {
   const [demoCourse, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { user, isAuthenticated, isLoading, error } = useAuth0();
 
   useEffect(() => {
     const cached = localStorage.getItem("demoCourse");
@@ -29,6 +34,18 @@ function App() {
     }
   }, []);
 
+  // const [userData, setUserData] = useState(null);
+  // useEffect(() => {
+  //   fetch(`${BRIDGE_URL}/api/users/${user.email}`)
+  //       .then(res => res.json())
+  //       .then(data => setUserData(data));
+  // }, []);
+
+  // if (isAuthenticated && !userData && !isLoading) {
+
+  // }
+  
+
   if (loading) {
     return <p>Loading…</p>;
   }
@@ -43,6 +60,9 @@ function App() {
           <Route path="/video/:slug" element={<VideoPage />}/>
           <Route path="/editor/:slug" element={<EditorPage />} />
           <Route path="/course/:slug/lesson/:id" element={<LessonPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/logout" element={<LogoutPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </Router>
     </>

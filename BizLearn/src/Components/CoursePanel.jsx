@@ -15,7 +15,7 @@ export function CoursePanel({course}) {
             <ProgressBar percentage={70.0} width={30} height={1} />
             <div style={{overflow: "hidden", width: "100%", 
                 display: "flex", alignItems: "center", justifyContent: "center"}}>
-                <img src={course.thumbnail} alt="" style={{width: "33rem"}}/> 
+                <img src={import.meta.env.BASE_URL + course.thumbnail} alt="" style={{width: "33rem"}}/> 
             </div>
             <div>
                 <p style={{

@@ -77,5 +77,30 @@ course_data = {
     ]
 }
 
+def add_user(user_data):
+    db = client['BizLearn']
+    collection = db['users']
+    
+    if 'email' not in user_data:
+        raise ValueError("user data not in correct form.")
+    
+    collection.insert_one(user_data)
+    
+    return user_data["email"]
 
-add_course(course_data)
+user_data = {
+    "email": "danielz4734@gmail.com",
+    "name": "daniel",
+    "points": 0,
+    "courses_enrolled": [
+        {
+            "slug": "zero-to-fullstack-bootcamp",
+            "lessons_completed": [
+                {
+                    "id": "1"
+                }
+            ]
+        }
+    ]
+}
+add_user(user_data)

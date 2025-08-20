@@ -19,24 +19,10 @@ def serialize(doc):
     doc["_id"] = str(doc["_id"])
     return doc
 
-
-def add_course(course_data):
-    db = client['BizLearn'] # database name
-    collection = db['courses'] # collection name within the database
-    
-    if 'id' not in course_data:
-        raise ValueError("Patient data not in correct form.")
-    
-    result = collection.insert_one(course_data)
-    
-    return course_data['id']
-
 @app.get("/api/courses/<slug>")
 def get_course_by_id(slug):
     db = client['BizLearn']
     collection = db['courses']
-    
-    query = {"slug": slug}
     
     doc = collection.find_one({"slug": slug})
     if not doc:
@@ -65,16 +51,42 @@ def get_lesson_by_id(slug, id):
     
     return jsonify(lesson)
 
-def delete_course_by_id(course_id):
-    db = client['BizLearn']
-    collection = db['courses']
+# def delete_course_by_id(course_id):
+#     db = client['BizLearn']
+#     collection = db['courses']
 
-    query = {"_id": course_id}
+#     query = {"_id": course_id}
     
-    result = collection.delete_one(query)
-    return result.deleted_count
+#     result = collection.delete_one(query)
+#     return result.deleted_count
+
+@app.get("/api/users/<email>")
+def get_user_by_email(email):
+    db = client['BizLearn']
+    collection = db['users']
+
+    doc = collection.find_one({"email": email})
+    if not doc:
+        return {"error": "Not found"}, 404
+    doc["_id"] = str(doc["_id"])
+    return doc
+
+@app.post("/api/users/")
+def add_user(user_data):
+    db = client['BizLearn']
+    collection = db['users']
+    
+    if 'email' not in user_data:
+        raise ValueError("user data not in correct form.")
+    
+    collection.insert_one(user_data)
+    
+    return user_data['id']
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
 
-get_lesson_by_id("1")
+course_data = {
+    "email": "zero-to-fullstack-bootcamp"
+}

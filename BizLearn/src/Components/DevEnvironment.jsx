@@ -5,14 +5,17 @@ import Editor from "@monaco-editor/react";
 
 export function DevEnvironment({ inputHTML, inputCSS, inputJS }) {
 
+  const normalize = s =>
+    String(s).replace(/\r\n/g, '\n').replace(/\\n/g, '\n'); 
+
   const defaultHTML = inputHTML
   const defaultCSS = inputCSS
   const defaultJS = inputJS
 
   const [activeTab, setActiveTab] = useState("html");
-  const [html, setHtml] = useState(defaultHTML);
-  const [css, setCss] = useState(defaultCSS);
-  const [js, setJs] = useState(defaultJS);
+  const [html, setHtml] = useState(normalize(defaultHTML));
+  const [css, setCss] = useState(normalize(defaultCSS));
+  const [js, setJs] = useState(normalize(defaultJS));
   const iframeRef = useRef(null);
   
 

@@ -1,11 +1,13 @@
 import { CoursePanel } from '../Components/CoursePanel'
 import { Link, useLocation } from "react-router-dom"
+import { LoginButton } from "../Components/LoginButton"
 
-export function CoursesPage({courses}) {
+export function LoginPage() {
 
   return (
     <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "40rem"}}>
-      <Link to={`/course/${courses.uid}`} ><CoursePanel course={courses} /></Link>
+      
+      <LoginButton />
       
     </div>
   )
