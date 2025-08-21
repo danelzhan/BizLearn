@@ -3,7 +3,9 @@ import Editor from "@monaco-editor/react";
 
 
 
-export function DevEnvironment({ inputHTML, inputCSS, inputJS }) {
+export function DevEnvironment({ inputHTML, inputCSS, inputJS, email }) {
+
+  const BRIDGE_URL = 'http://localhost:5000' || "http://127.0.0.1:5000";
 
   const normalize = s =>
     String(s).replace(/\r\n/g, '\n').replace(/\\n/g, '\n'); 
@@ -34,17 +36,31 @@ export function DevEnvironment({ inputHTML, inputCSS, inputJS }) {
     </html>
   `;
 
+  const saveCode = async (html, css, js) => {
+    await fetch(
+      `${BRIDGE_URL}/api/users/${email}/courses/zero-to-fullstack-bootcamp/code`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ html, css, js })
+      }
+    );
+  };
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (iframeRef.current) {
         iframeRef.current.srcdoc = generateSrcDoc();
       }
-    }, 250); // debounce
+
+      const codeData = { html, css, js };
+      localStorage.setItem("savedCode", JSON.stringify(codeData));
+    }, 750);
 
     return () => clearTimeout(timeout);
   }, [html, css, js]);
 
-    const handleEditorMount = (editor, monaco) => {
+  const handleEditorMount = (editor, monaco) => {
     monaco.editor.defineTheme("myCustomTheme", {
         base: "vs-dark",
         inherit: true,

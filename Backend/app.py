@@ -66,27 +66,68 @@ def get_user_by_email(email):
     collection = db['users']
 
     doc = collection.find_one({"email": email})
-    if not doc:
-        return {"error": "Not found"}, 404
     doc["_id"] = str(doc["_id"])
-    return doc
+    if not doc:
+        return jsonify({"error": "Not found"})
+    return jsonify(doc)
 
-@app.post("/api/users/")
-def add_user(user_data):
+@app.post("/api/users")
+def add_user():
     db = client['BizLearn']
     collection = db['users']
+
+    user_data = request.get_json()
     
     if 'email' not in user_data:
         raise ValueError("user data not in correct form.")
     
     collection.insert_one(user_data)
     
-    return user_data['id']
+    return jsonify(user_data)
+
+@app.patch("/api/users/<email>")
+def update_user(email):
+    db = client['BizLearn']
+    collection = db['users']
+
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "No data provided"}), 400
+    
+    result = collection.update_one({"email": email}, {"$set": data})
+
+    if result.matched_count == 0:
+        return jsonify({"error": "User not found"}), 404
+    
+    return "success", 200
+
+@app.patch("/api/users/<email>/courses/<slug>/code")
+def update_user_code(email, slug):
+    db = client['BizLearn']
+    collection = db['users']
+
+    data = request.get_json()
+    new_html = data.get("html", "")
+    new_css = data.get("css", "")
+    new_js = data.get("js", "")
+
+    if not data:
+        return jsonify({"error": "No data provided"}), 400
+    
+    collection.update_one(
+        {"email": email, "courses_enrolled.slug": slug},
+        {
+            "$set": {
+                "courses_enrolled.$.saved_html": new_html,
+                "courses_enrolled.$.saved_css": new_css,
+                "courses_enrolled.$.saved_js": new_js
+            }
+        }
+    )
+    
+    return "success", 200
 
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
-
-course_data = {
-    "email": "zero-to-fullstack-bootcamp"
-}

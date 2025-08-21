@@ -1,11 +1,13 @@
 import { Logo } from "./Logo"
+import { ProfileButton } from "./ProfileButton"
+
 
 export function Header() {
 
     return (
-        <div>
+        <div style={{display: "flex", justifyContent: "space-between"}}>
 
-            <Logo />
+            <Logo /><ProfileButton />
 
         </div>
     )

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import './App.css'
@@ -14,11 +14,14 @@ import { ProfilePage } from "./Pages/ProfilePage";
 
 import { VideoLesson, InteractiveLesson, Course, User } from './Objects'
 import { fetchCourseBySlug } from "./Bridge";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
   const [demoCourse, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [searched, setSearched] = useState(null);
   const { user, isAuthenticated, isLoading, error } = useAuth0();
+  const BRIDGE_URL = 'http://localhost:5000';
 
   useEffect(() => {
     const cached = localStorage.getItem("demoCourse");
@@ -34,35 +37,68 @@ function App() {
     }
   }, []);
 
-  // const [userData, setUserData] = useState(null);
-  // useEffect(() => {
-  //   fetch(`${BRIDGE_URL}/api/users/${user.email}`)
-  //       .then(res => res.json())
-  //       .then(data => setUserData(data));
-  // }, []);
-
-  // if (isAuthenticated && !userData && !isLoading) {
-
-  // }
+  const [userData, setUserData] = useState(null);
   
+  
+  useEffect(() => {
+    if (!user) return;
+    fetch(`${BRIDGE_URL}/api/users/${user.email}`)
+        .then(res => res.json())
+        .then(data => setUserData(data))
+  }, [user]);
+
+  useEffect(() => {
+    console.log(userData)
+    if (!userData) return;
+    if (userData.error == "Not found") {
+      const user_data = {
+        email: `${user.email}`,
+        name: `${user.name}`,
+        points: 0,
+        courses_enrolled: [
+          {
+            slug: "zero-to-fullstack-bootcamp",
+            lessons_completed: [],
+            saved_html: "",
+            saved_css: "",
+            saved_js: ""
+          }
+        ]
+      };
+
+      fetch(`${BRIDGE_URL}/api/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user_data)
+      })
+      
+    }
+
+  }, [userData])
+
 
   if (loading) {
     return <p>Loading…</p>;
   }
 
+  var percentage = (userData != null && userData.error == null) ? (userData.courses_enrolled[0].lessons_completed.length / demoCourse.lessons.length) * 100 : 0
+
+
   return (
     <>
-      <Header />
+      
       <Router basename="/BizLearn">
+      {isAuthenticated ? <div/> : <Navigate to="/login" replace />}
+      <Header />
         <Routes>
-          <Route path="/" element={<CoursesPage courses={demoCourse} />} />
-          <Route path="/course/:slug" element={<CoursePage />} />
-          <Route path="/video/:slug" element={<VideoPage />}/>
-          <Route path="/editor/:slug" element={<EditorPage />} />
-          <Route path="/course/:slug/lesson/:id" element={<LessonPage />} />
+          <Route path="/" element={<CoursesPage courses={demoCourse} percentage={percentage} />} />
+          <Route path="/course/:slug" element={<CoursePage percentage={percentage} />} />
+          <Route path="/course/:slug/lesson/:id" element={<LessonPage userData={userData} />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/logout" element={<LogoutPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile" element={<ProfilePage user={userData} userData={userData} setUserData={setUserData} />} />
         </Routes>
       </Router>
     </>

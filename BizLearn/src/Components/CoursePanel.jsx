@@ -1,6 +1,6 @@
 import { ProgressBar } from "./ProgressBar"
 
-export function CoursePanel({course}) {
+export function CoursePanel({course, percentage}) {
 
     return (
         <div className="course-panel" style={{
@@ -12,7 +12,7 @@ export function CoursePanel({course}) {
             borderRadius: "0.7rem",
             overflow: "hidden"
             }}>
-            <ProgressBar percentage={70.0} width={30} height={1} />
+            <ProgressBar percentage={percentage} width={30} height={1} />
             <div style={{overflow: "hidden", width: "100%", 
                 display: "flex", alignItems: "center", justifyContent: "center"}}>
                 <img src={import.meta.env.BASE_URL + course.thumbnail} alt="" style={{width: "33rem"}}/> 

@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 const BRIDGE_URL = 'http://localhost:5000' || "http://127.0.0.1:5000";
 
-export function CoursePage() {
+export function CoursePage({percentage, userData, setUserData}) {
 
     const { slug } = useParams();
     const [course, setCourse] = useState(null);
@@ -33,7 +33,7 @@ export function CoursePage() {
                     <BackButton />
                 </div>
                 <div style={{borderRadius: "1rem", overflow: "hidden", backgroundColor: "#172037", height: "40rem"}}>
-                    <ProgressBar percentage={70.0} height={1} width={width} />
+                    <ProgressBar percentage={percentage} height={1} width={width} />
                     {course.lessons.map((lesson, index) => (
                         <Link key={index} to={`/course/${slug}/lesson/${lesson.id}`}><LessonPanel title={lesson.title} description={lesson.description} /></Link>
                     ))}

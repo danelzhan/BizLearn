@@ -5,7 +5,7 @@ import { SubmitButton } from "../Components/SubmitButton"
 import { Link } from "react-router-dom";
 
 
-export function EditorPage({lesson}) {
+export function EditorPage({lesson, userData}) {
 
   return (
     <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
@@ -13,8 +13,11 @@ export function EditorPage({lesson}) {
             <p className={"page_title"} >{lesson.title}</p>
             <BackButton />
         </div>
-        <DevEnvironment inputHTML={lesson.default_html} inputCSS={lesson.default_css} inputJS={lesson.default_js} />
-        <div style={{display: "flex", justifyContent: "space-between", width: "75rem"}}><div /><Link to="/course"><SubmitButton label={"Submit"} /></Link></div>
+        <DevEnvironment inputHTML={lesson.default_html} inputCSS={lesson.default_css} inputJS={lesson.default_js} email={userData.email} />
+        <div style={{display: "flex", justifyContent: "space-between", width: "75rem"}}>
+          <div />
+          <button type="submit"><SubmitButton label={"Submit"} /></button>
+        </div>
     </div>
 
   )
