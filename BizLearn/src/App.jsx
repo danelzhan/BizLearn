@@ -19,8 +19,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 function App() {
   const [demoCourse, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [searched, setSearched] = useState(null);
-  const { user, isAuthenticated, isLoading, error } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const BRIDGE_URL = 'http://localhost:5000';
 
   useEffect(() => {
@@ -84,7 +83,7 @@ function App() {
   }
 
   var percentage = (userData != null && userData.error == null) ? (userData.courses_enrolled[0].lessons_completed.length / demoCourse.lessons.length) * 100 : 0
-
+  console.log(percentage)
 
   return (
     <>
@@ -95,7 +94,7 @@ function App() {
         <Routes>
           <Route path="/" element={<CoursesPage courses={demoCourse} percentage={percentage} />} />
           <Route path="/course/:slug" element={<CoursePage percentage={percentage} />} />
-          <Route path="/course/:slug/lesson/:id" element={<LessonPage userData={userData} />} />
+          <Route path="/course/:slug/lesson/:id" element={<LessonPage userData={userData} setUserData={setUserData} />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/logout" element={<LogoutPage />} />
           <Route path="/profile" element={<ProfilePage user={userData} userData={userData} setUserData={setUserData} />} />

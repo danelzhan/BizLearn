@@ -66,9 +66,9 @@ def get_user_by_email(email):
     collection = db['users']
 
     doc = collection.find_one({"email": email})
-    doc["_id"] = str(doc["_id"])
     if not doc:
         return jsonify({"error": "Not found"})
+    doc["_id"] = str(doc["_id"])
     return jsonify(doc)
 
 @app.post("/api/users")

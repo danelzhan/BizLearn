@@ -3,7 +3,7 @@ import Editor from "@monaco-editor/react";
 
 
 
-export function DevEnvironment({ inputHTML, inputCSS, inputJS, email }) {
+export function DevEnvironment({ inputHTML, inputCSS, inputJS, setHTML, setCSS, setJS, email }) {
 
   const BRIDGE_URL = 'http://localhost:5000' || "http://127.0.0.1:5000";
 
@@ -55,6 +55,9 @@ export function DevEnvironment({ inputHTML, inputCSS, inputJS, email }) {
 
       const codeData = { html, css, js };
       localStorage.setItem("savedCode", JSON.stringify(codeData));
+      setHTML(html)
+      setCSS(css)
+      setJS(js)
     }, 750);
 
     return () => clearTimeout(timeout);

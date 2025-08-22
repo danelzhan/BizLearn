@@ -66,13 +66,31 @@ course_data = {
             "url": "https://www.youtube.com/embed/3OamzN90kPg?si=kyb2jPaEMNn5wTwd"
         },
         {
-            "id": "3",
+            "id": "2",
             "title": "HTML Challenge",
             "description": "Description",
             "type": "InteractiveLesson",
-            "default_html": "<!-- HTML --> <h1>Challenge 1</h1> <p>Using what you learned, create a list of 5 of your favourite foods.</p>",
-            "default_css": "/* CSS */ body { background: #172037; color: white; font-family: sans-serif; }",
-            "default_js": "// JS console.log('Hello from JS!')"
+            "task": "Using what you have learned, create a list of 5 of your favourite food. Include a header and an image",
+            "default_html": "<!-- HTML -->\n<h1>Challenge 1</h1>\n<p>Using what you learned, create a list of 5 of your favourite foods.</p>",
+            "default_css": "/* CSS */\nbody {\nbackground: #172037; color: white; font-family: sans-serif;\n}",
+            "default_js": "// JS \nconsole.log('Hello from JS!')"
+        },
+        {
+            "id": "3",
+            "title": "Introduction to CSS",
+            "description": "Add your flair",
+            "type": "VideoLesson",
+            "url": "https://www.youtube.com/embed/3OamzN90kPg?si=kyb2jPaEMNn5wTwd"
+        },
+        {
+            "id": "4",
+            "title": "CSS Challenge",
+            "description": "Description",
+            "type": "InteractiveLesson",
+            "task": "Using what you have learned, create a list of 5 of your favourite food. Include a header and an image",
+            "default_html": "<!-- HTML -->\n<h1>Challenge 1</h1>\n<p>Using what you learned, create a list of 5 of your favourite foods.</p>",
+            "default_css": "/* CSS */\nbody {\nbackground: #172037; color: white; font-family: sans-serif;\n}",
+            "default_js": "// JS \nconsole.log('Hello from JS!')"
         }
     ]
 }
@@ -103,4 +121,4 @@ user_data = {
         }
     ]
 }
-add_user(user_data)
+add_course(course_data)

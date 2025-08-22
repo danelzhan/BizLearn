@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { EditorPage } from "./EditorPage";
 import { VideoPage } from "./VideoPage";
 
-export function LessonPage({userData}) {
+export function LessonPage({userData, setUserData}) {
 
     const BRIDGE_URL = 'http://localhost:5000' || "http://127.0.0.1:5000";
     const { slug, id } = useParams();
@@ -21,8 +21,8 @@ export function LessonPage({userData}) {
     }
 
     if (lesson.type == "VideoLesson") {
-        return <VideoPage lesson={lesson} />
+        return <VideoPage lesson={lesson} userData={userData} setUserData={setUserData} />
     } else if (lesson.type == "InteractiveLesson") {
-        return <EditorPage lesson={lesson} userData={userData} />
+        return <EditorPage lesson={lesson} userData={userData} setUserData={setUserData} />
     }
 }
